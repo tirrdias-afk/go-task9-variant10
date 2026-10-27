@@ -1,0 +1,3 @@
+BUILD.cmd: PASS
+START.cmd menu and exit: PASS
+CHECK.cmd: PASS

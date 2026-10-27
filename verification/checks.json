@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "go_version": "go version go1.27.1 windows/amd64",
+  "date": "2026-10-27T17:59:17.468382+05:00",
+  "checks": [
+    "01_basic_time test vet build",
+    "02_internal_packages test vet build",
+    "03_studentapp test vet build",
+    "basic actual current time",
+    "two internal packages used",
+    "external internal import is rejected",
+    "demo shows 3 students and both filters",
+    "duplicate ID rejected without adding row",
+    "console add and list",
+    "console filters",
+    "bad numeric input and menu selection recover",
+    "EOF during data entry terminates safely",
+    "missing configuration fails clearly",
+    "malformed JSON fails clearly",
+    "custom config and empty list"
+  ],
+  "scope": "Automated unit and console checks; no manual terminal color inspection."
+}

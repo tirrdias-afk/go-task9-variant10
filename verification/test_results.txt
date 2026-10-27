@@ -1,0 +1,271 @@
+$ go fmt ./...
+main.go
+
+exit=0
+
+$ go mod tidy
+
+exit=0
+
+$ go test -count=1 -v ./...
+?   	basic10	[no test files]
+
+exit=0
+
+$ go vet ./...
+
+exit=0
+
+$ go build -trimpath -o basic10.exe .
+
+exit=0
+
+$ go fmt ./...
+main.go
+internal\greetings\greetings.go
+
+exit=0
+
+$ go mod tidy
+
+exit=0
+
+$ go test -count=1 -v ./...
+?   	internal10	[no test files]
+?   	internal10/internal/greetings	[no test files]
+?   	internal10/internal/mathutils	[no test files]
+
+exit=0
+
+$ go vet ./...
+
+exit=0
+
+$ go build -trimpath -o internal10.exe .
+
+exit=0
+
+$ go fmt ./...
+main.go
+config\config.go
+config\config_test.go
+logger\logger.go
+student\student.go
+student\student_test.go
+utils\input.go
+utils\input_test.go
+
+exit=0
+
+$ go mod tidy
+
+exit=0
+
+$ go mod vendor
+
+exit=0
+
+$ go test -count=1 -v ./...
+?   	studentapp	[no test files]
+=== RUN   TestConfigLoading
+=== RUN   TestConfigLoading/valid
+=== RUN   TestConfigLoading/invalid_json
+=== RUN   TestConfigLoading/missing_fields
+=== RUN   TestConfigLoading/invalid_course
+=== RUN   TestConfigLoading/unknown_field
+=== RUN   TestConfigLoading/trailing_json
+--- PASS: TestConfigLoading (0.05s)
+    --- PASS: TestConfigLoading/valid (0.02s)
+    --- PASS: TestConfigLoading/invalid_json (0.00s)
+    --- PASS: TestConfigLoading/missing_fields (0.00s)
+    --- PASS: TestConfigLoading/invalid_course (0.01s)
+    --- PASS: TestConfigLoading/unknown_field (0.01s)
+    --- PASS: TestConfigLoading/trailing_json (0.01s)
+PASS
+ok  	studentapp/config	0.583s
+?   	studentapp/logger	[no test files]
+=== RUN   TestAddAndDuplicate
+--- PASS: TestAddAndDuplicate (0.07s)
+=== RUN   TestInvalidStudentDoesNotChangeList
+=== RUN   TestInvalidStudentDoesNotChangeList/first_name
+=== RUN   TestInvalidStudentDoesNotChangeList/faculty
+=== RUN   TestInvalidStudentDoesNotChangeList/future_year
+=== RUN   TestInvalidStudentDoesNotChangeList/id
+=== RUN   TestInvalidStudentDoesNotChangeList/last_name
+=== RUN   TestInvalidStudentDoesNotChangeList/group
+=== RUN   TestInvalidStudentDoesNotChangeList/old_year
+=== RUN   TestInvalidStudentDoesNotChangeList/low_course
+=== RUN   TestInvalidStudentDoesNotChangeList/high_course
+--- PASS: TestInvalidStudentDoesNotChangeList (0.00s)
+    --- PASS: TestInvalidStudentDoesNotChangeList/first_name (0.00s)
+    --- PASS: TestInvalidStudentDoesNotChangeList/faculty (0.00s)
+    --- PASS: TestInvalidStudentDoesNotChangeList/future_year (0.00s)
+    --- PASS: TestInvalidStudentDoesNotChangeList/id (0.00s)
+    --- PASS: TestInvalidStudentDoesNotChangeList/last_name (0.00s)
+    --- PASS: TestInvalidStudentDoesNotChangeList/group (0.00s)
+    --- PASS: TestInvalidStudentDoesNotChangeList/old_year (0.00s)
+    --- PASS: TestInvalidStudentDoesNotChangeList/low_course (0.00s)
+    --- PASS: TestInvalidStudentDoesNotChangeList/high_course (0.00s)
+=== RUN   TestFilters
+--- PASS: TestFilters (0.00s)
+PASS
+ok  	studentapp/student	0.480s
+=== RUN   TestInputRetriesAndEOF
+Қате: бүтін сан енгізіңіз.
+--- PASS: TestInputRetriesAndEOF (0.00s)
+PASS
+ok  	studentapp/utils	0.414s
+
+exit=0
+
+$ go vet ./...
+
+exit=0
+
+$ go build -trimpath -o studentapp.exe .
+
+exit=0
+
+$ PROJECT\01_basic_time\basic10.exe
+Ағымдағы уақыт: 2026-10-27 17:59:16 +05:00
+
+exit=0
+
+$ PROJECT\02_internal_packages\internal10.exe
+Сәлем, Диас!
+10 + 5 = 15
+10 * 5 = 50
+Екі internal пакет бір модульден қолданылды.
+
+exit=0
+
+$ go build .
+package outsider
+	main.go:2:8: use of internal package internal10/internal/mathutils not allowed
+
+exit=1
+
+$ PROJECT\03_studentapp\studentapp.exe -demo
+[INFO] 2026-10-27 17:59:16 — StudentApp — студенттерді басқару
+[INFO] 2026-10-27 17:59:17 — Студент қосылды: Алия Сүлеймен (CS-22)
+[INFO] 2026-10-27 17:59:17 — Студент қосылды: Ерлан Талғат (M-11)
+[INFO] 2026-10-27 17:59:17 — Студент қосылды: Айгерім Серік (CS-31)
+[INFO] 2026-10-27 17:59:17 — Барлық студенттер
+ID 1 | Сүлеймен Алия | 2005 ж. | IT | 2 курс | CS-22
+ID 2 | Талғат Ерлан | 2006 ж. | Math | 1 курс | M-11
+ID 3 | Серік Айгерім | 2004 ж. | IT | 3 курс | CS-31
+Барлығы: 3 студент
+[INFO] 2026-10-27 17:59:17 — Факультет бойынша сүзу: IT
+ID 1 | Сүлеймен Алия | 2005 ж. | IT | 2 курс | CS-22
+ID 3 | Серік Айгерім | 2004 ж. | IT | 3 курс | CS-31
+Барлығы: 2 студент
+[INFO] 2026-10-27 17:59:17 — Курс бойынша сүзу: 2
+ID 1 | Сүлеймен Алия | 2005 ж. | IT | 2 курс | CS-22
+Барлығы: 1 студент
+[INFO] 2026-10-27 17:59:17 — Қайталанатын ID қатесін тексеру
+[ERROR] 2026-10-27 17:59:17 — студент ID 1 бұрыннан бар
+Тізімде әлі де 3 студент бар.
+
+exit=0
+
+$ PROJECT\03_studentapp\studentapp.exe
+[INFO] 2026-10-27 17:59:17 — StudentApp — студенттерді басқару
+[INFO] 2026-10-27 17:59:17 — Студент қосылды: Алия Сүлеймен (CS-22)
+[INFO] 2026-10-27 17:59:17 — Студент қосылды: Ерлан Талғат (M-11)
+[INFO] 2026-10-27 17:59:17 — Студент қосылды: Айгерім Серік (CS-31)
+
+1 — Студент қосу
+2 — Барлығын көрсету
+3 — Факультет бойынша сүзу
+4 — Курс бойынша сүзу
+0 — Шығу
+Таңдау: Қате: бүтін сан енгізіңіз.
+Таңдау: [ERROR] 2026-10-27 17:59:17 — Мәзірден 0 мен 4 аралығындағы санды таңдаңыз.
+
+1 — Студент қосу
+2 — Барлығын көрсету
+3 — Факультет бойынша сүзу
+4 — Курс бойынша сүзу
+0 — Шығу
+Таңдау: ID: Тегі: Аты: Туған жылы: Факультеті: Курсы (1–6): Тобы: [INFO] 2026-10-27 17:59:17 — Студент қосылды: Қазақ Аты Жаңа Тегі (CS-22)
+
+1 — Студент қосу
+2 — Барлығын көрсету
+3 — Факультет бойынша сүзу
+4 — Курс бойынша сүзу
+0 — Шығу
+Таңдау: [INFO] 2026-10-27 17:59:17 — Барлық студенттер
+ID 1 | Сүлеймен Алия | 2005 ж. | IT | 2 курс | CS-22
+ID 2 | Талғат Ерлан | 2006 ж. | Math | 1 курс | M-11
+ID 3 | Серік Айгерім | 2004 ж. | IT | 3 курс | CS-31
+ID 4 | Жаңа Тегі Қазақ Аты | 2005 ж. | IT | 2 курс | CS-22
+Барлығы: 4 студент
+
+1 — Студент қосу
+2 — Барлығын көрсету
+3 — Факультет бойынша сүзу
+4 — Курс бойынша сүзу
+0 — Шығу
+Таңдау: Факультет: ID 1 | Сүлеймен Алия | 2005 ж. | IT | 2 курс | CS-22
+ID 3 | Серік Айгерім | 2004 ж. | IT | 3 курс | CS-31
+ID 4 | Жаңа Тегі Қазақ Аты | 2005 ж. | IT | 2 курс | CS-22
+Барлығы: 3 студент
+
+1 — Студент қосу
+2 — Барлығын көрсету
+3 — Факультет бойынша сүзу
+4 — Курс бойынша сүзу
+0 — Шығу
+Таңдау: Курс: ID 1 | Сүлеймен Алия | 2005 ж. | IT | 2 курс | CS-22
+ID 4 | Жаңа Тегі Қазақ Аты | 2005 ж. | IT | 2 курс | CS-22
+Барлығы: 2 студент
+
+1 — Студент қосу
+2 — Барлығын көрсету
+3 — Факультет бойынша сүзу
+4 — Курс бойынша сүзу
+0 — Шығу
+Таңдау: [INFO] 2026-10-27 17:59:17 — Бағдарлама аяқталды.
+
+exit=0
+
+$ PROJECT\03_studentapp\studentapp.exe
+[INFO] 2026-10-27 17:59:17 — StudentApp — студенттерді басқару
+[INFO] 2026-10-27 17:59:17 — Студент қосылды: Алия Сүлеймен (CS-22)
+[INFO] 2026-10-27 17:59:17 — Студент қосылды: Ерлан Талғат (M-11)
+[INFO] 2026-10-27 17:59:17 — Студент қосылды: Айгерім Серік (CS-31)
+
+1 — Студент қосу
+2 — Барлығын көрсету
+3 — Факультет бойынша сүзу
+4 — Курс бойынша сүзу
+0 — Шығу
+Таңдау: ID: Тегі: [INFO] 2026-10-27 17:59:17 — Енгізу аяқталды.
+
+exit=0
+
+$ PROJECT\03_studentapp\studentapp.exe -config does-not-exist.json
+[ERROR] 2026-10-27 17:59:17 — конфигурацияны ашу: open does-not-exist.json: The system cannot find the file specified.
+
+exit=1
+
+$ PROJECT\03_studentapp\studentapp.exe -config WORKSPACE\work\bad-config.json
+[ERROR] 2026-10-27 17:59:17 — JSON оқу: unexpected EOF
+
+exit=1
+
+$ PROJECT\03_studentapp\studentapp.exe -config WORKSPACE\work\custom-config.json -demo
+[INFO] 2026-10-27 17:59:17 — Custom App
+[INFO] 2026-10-27 17:59:17 — Барлық студенттер
+Студент табылмады.
+[INFO] 2026-10-27 17:59:17 — Факультет бойынша сүзу: Math
+Студент табылмады.
+[INFO] 2026-10-27 17:59:17 — Курс бойынша сүзу: 1
+Студент табылмады.
+
+exit=0
+
+$ go version
+go version go1.27.1 windows/amd64
+
+exit=0

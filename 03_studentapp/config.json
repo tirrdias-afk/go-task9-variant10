@@ -1,0 +1,6 @@
+{
+  "app_name": "StudentApp — студенттерді басқару",
+  "default_faculty": "IT",
+  "default_course": 2,
+  "seed_students": true
+}
